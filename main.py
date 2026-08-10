@@ -15,12 +15,11 @@ app = FastAPI(title="Scavenger Hunt API")
 # Configure CORS for local development with Vite
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins for vibe coding; tighten for prod if needed
+    allow_origins=["http://localhost:5173", "scavenger-hunt-2026-eight.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # --- Public / General Endpoints ---
 
 @app.get("/api/items", response_model=List[models.HuntItem])
