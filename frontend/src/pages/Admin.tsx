@@ -4,14 +4,62 @@ import { api } from '../api';
 import type { Submission, HuntItem, Team } from '../types';
 
 export default function Admin() {
+  // --- Quick Auth Setup ---
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    sessionStorage.getItem('adminAuth') === 'true'
+  );
+  const [passwordInput, setPasswordInput] = useState('');
+  
+  // Change this to whatever you want your admin password to be!
+  const ADMIN_PASSWORD = 'gamemaster'; 
+
+  // --- Existing State ---
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [items, setItems] = useState<Record<number, HuntItem>>({});
   const [teams, setTeams] = useState<Record<number, Team>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    // Only fetch data if we are authenticated!
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [isAuthenticated]);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      sessionStorage.setItem('adminAuth', 'true');
+    } else {
+      alert('Nice try! Incorrect password.');
+      setPasswordInput('');
+    }
+  };
+
+  // --- The Login Screen ---
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-sm mx-auto mt-24 p-8 bg-white rounded-xl shadow-md border border-gray-200 text-center">
+        <h1 className="text-2xl font-bold mb-6 text-gray-900">Game Master Only</h1>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <input
+            type="password"
+            placeholder="Enter password..."
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          />
+          <button type="submit" className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition-colors">
+            Unlock Dashboard
+          </button>
+        </form>
+        <div className="mt-6">
+          <Link to="/" className="text-sm text-gray-500 hover:text-blue-600">&larr; Back to Leaderboard</Link>
+        </div>
+      </div>
+    );
+  }
 
   const fetchData = async () => {
     try {
