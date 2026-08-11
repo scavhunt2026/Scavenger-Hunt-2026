@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Leaderboard from './pages/Leaderboard';
 import Team from './pages/Team';
 import SubmitPhoto from './pages/SubmitPhoto';
-import Admin from './pages/Admin'; // Add import
+import Admin from './pages/Admin'; 
+import Prompts from './pages/Prompts';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
           <Route path="/" element={<Leaderboard />} />
           <Route path="/teams/:teamId" element={<Team />} />
           <Route path="/teams/:teamId/submit" element={<SubmitPhoto />} />
-          <Route path="/admin" element={<Admin />} /> {/* Replace placeholder */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/prompts" element={<Prompts />} /> 
         </Routes>
       </div>
     </BrowserRouter>

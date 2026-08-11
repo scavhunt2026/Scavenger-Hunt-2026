@@ -17,9 +17,13 @@ export default function Leaderboard() {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
+
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-4xl font-bold tracking-tight">Scavenger Hunt</h1>
-        <Link to="/admin" className="text-sm text-gray-500 hover:text-blue-600">Admin</Link>
+        <div className="flex gap-4">
+          <Link to="/prompts" className="text-sm font-semibold text-blue-600 hover:underline">View Prompts</Link>
+          <Link to="/admin" className="text-sm text-gray-500 hover:text-blue-600">Admin</Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow overflow-hidden">
