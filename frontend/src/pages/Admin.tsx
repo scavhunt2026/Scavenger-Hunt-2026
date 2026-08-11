@@ -10,8 +10,7 @@ export default function Admin() {
   );
   const [passwordInput, setPasswordInput] = useState('');
   
-  // Change this to whatever you want your admin password to be!
-  const ADMIN_PASSWORD = 'gamemaster'; 
+  const ADMIN_PASSWORD = 'touchgrass'; 
 
   // --- Existing State ---
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -32,7 +31,7 @@ export default function Admin() {
       setIsAuthenticated(true);
       sessionStorage.setItem('adminAuth', 'true');
     } else {
-      alert('Nice try! Incorrect password.');
+      alert('Fuck off plz stop trying to cheat');
       setPasswordInput('');
     }
   };
